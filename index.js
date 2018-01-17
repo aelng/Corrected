@@ -96,7 +96,7 @@ bot.on('message', (message) => {
    
 });
 
-bot.login('MzgxNTU5OTQ0OTE2NTAwNDkw.DPI8Xg.Ynmk3WZUSVfF6y4f0gLnQJN1C-A');
+bot.login('***');
 
 function getHelp(corrections){
     let embed = new Discord.RichEmbed();
