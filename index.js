@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const Enmap = require('enmap');
 const EnmapLevel = require('enmap-level');
+const configuration = require('./config/config.json');
 //get client (dummy for bot)
 const bot = new Discord.Client();
 const prefix = '!';
@@ -44,8 +45,9 @@ bot.on('message', (message) => {
     
     const lowMessage = message.content.toLowerCase();
 
-    if(enabled){
+    if(enabled && message.author.id!=bot.user.id){
         for(key in memWords){
+            console.log(key);
             if(lowMessage.includes(key)){
                 message.channel.sendMessage(
                     `*${memWords[key]}`
@@ -64,7 +66,7 @@ bot.on('message', (message) => {
    switch (args[0].toLowerCase()) {
        case "add":
         //make sure user has enough arguments
-        if(args.length>3){
+        if(args.length>=3){
             const shortForm = args[1];
             const realWord = args[2];
             memWords[shortForm] = realWord;
@@ -78,6 +80,7 @@ bot.on('message', (message) => {
         message.channel.send("Here are all of the short-term words with the translations, Enjoy!")
         message.channel.send(getHelp(corrections.get("words")));
         message.channel.send("Also, to get the bot running do '!on' and if you want to close it do '!off' ")
+        message.channel.send("You can add words with !add (word) (correction)")
         break;
        case "on":
         enabled = true;
@@ -96,7 +99,7 @@ bot.on('message', (message) => {
    
 });
 
-bot.login('***');
+bot.login(configuration.password);
 
 function getHelp(corrections){
     let embed = new Discord.RichEmbed();
