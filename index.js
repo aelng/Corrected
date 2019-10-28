@@ -62,7 +62,8 @@ bot.on('message', (message) => {
    if (!message.content.startsWith(prefix)) return;
 
    var args = message.content.substring(prefix.length).split(" ");
-
+   
+   const msgChann = message.channel;
    switch (args[0].toLowerCase()) {
        case "add":
         //make sure user has enough arguments
@@ -73,22 +74,22 @@ bot.on('message', (message) => {
             save();
         }
         else{
-            message.channel.sendMessage("incorrect usage");
+            msgChann.sendMessage("incorrect usage");
         }
         break;
        case "help":
-        message.channel.send("Here are all of the short-term words with the translations, Enjoy!")
-        message.channel.send(getHelp(corrections.get("words")));
-        message.channel.send("Also, to get the bot running do '!on' and if you want to close it do '!off' ")
-        message.channel.send("You can add words with !add (word) (correction)")
+        msgChann.send("Here are all of the short-term words with the translations, Enjoy!")
+        msgChann.send(getHelp(corrections.get("words")));
+        msgChann.send("Also, to get the bot running do '!on' and if you want to close it do '!off' ")
+        msgChann.send("You can add words with !add (word) (correction)")
         break;
        case "on":
         enabled = true;
-        message.channel.send("Corrections are now being listened for...");
+        msgChann.send("Corrections are now being listened for...");
         break;
        case "off":
         enabled = false;
-        message.channel.send("Corrections are now not being listened for.");
+        msgChann.send("Corrections are now not being listened for.");
         break;
 
 
